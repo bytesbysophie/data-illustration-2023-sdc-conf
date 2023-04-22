@@ -1,6 +1,8 @@
-# Setup Template from Three.js Journey (Bruno Simon)
+# Data Illustration for the Social Develeopers Club Conference 2023
 
 ## Setup
+_The setup is based on the project template from Three.js Journey by Bruno Simon_
+
 Download [Node.js](https://nodejs.org/en/download/).
 Run this followed commands:
 
