@@ -11,10 +11,9 @@ class IconGird {
             colsN: _config.colsN, 
             rowsN: _config.rowsN, 
             iconR: _config.iconR,
-            background: _config.background
+            background: _config.background,
+            data: _config.data
         }
-
-
 
         this.initVis();
     }
@@ -122,30 +121,20 @@ class IconGird {
             .range([0, vis.config.width])
             .domain(d3.range(vis.config.colsN));
 
-        /**
-         * Define data
-         */
-        // Number of icons
-        let iconN = vis.config.colsN * vis.config.rowsN
+        // Icon scale
+        let i = d3.scaleOrdinal()
+            .range(d3.map(vis.icons, d => d.id))
+            .domain(d3.map(vis.config.data, d => d.type))
 
-        // The share of circles that should be highlighted
-        let percentNumber = 0.7;
-
-        // Generate the circles data: array of indices + "active" info for each cell in the grid
-        // TODO: We need a data category instead of the active boolean
-        vis.data =[];
-        d3.range(iconN).forEach(function(d){
-            vis.data.push({"index": d,"active": d / iconN < percentNumber})
-        })
 
         /**
          * Add icons to grid
          * TODO: Use d3 categorical scale to assign icons
          */
         vis.grid.selectAll("use")
-            .data(vis.data)
+            .data(vis.config.data)
             .enter().append("use")
-            .attr("xlink:href", d => d.active ? `#${vis.icons[0].id}` : `#${vis.icons[2].id}`)
+            .attr("xlink:href", d => `#${i(d)}`)
             .attr("id", d => "id" + d.index)
             .attr('x', d => x(d.index % vis.config.colsN))
             .attr('y', d => y(Math.floor(d.index / vis.config.colsN)))
@@ -180,7 +169,7 @@ class IconGird {
         // Append circles to grid container & stlyle them according to the data & percentNumber
         vis.grid.selectAll("circle").remove();
         vis.circles = vis.grid.selectAll("circle")
-            .data(vis.data)
+            .data(vis.config.data)
             .enter().append("circle")
             .attr("id", d => "id" + d.index)
             .attr('cx', d => x(d.index % vis.config.colsN))

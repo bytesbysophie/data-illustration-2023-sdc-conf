@@ -2,9 +2,8 @@ import * as d3 from "d3"
 import GUI from "lil-gui"
 import { IconGird } from "./IconGrid"
 
-
 /**
- *  ICON GRID
+ *  ICON GRID CONFIG
  */
 const gridConfig = {}
 gridConfig.parentElement = "#grid-container"
@@ -15,7 +14,41 @@ gridConfig.rowsN = 12
 gridConfig.iconR = 20
 gridConfig.background = '#1B1818'
 
-const iconGrid = new IconGird(gridConfig)
+let iconGrid
+
+// // Number of icons
+// let iconN = 5 * 12
+
+// // The share of circles that should be highlighted
+// let percentNumber = 0.7;
+
+// // Generate the circles data: array of indices + "active" info for each cell in the grid
+// // TODO: We need a data category instead of the active boolean
+// let data = [];
+// d3.range(iconN).forEach(function(d){
+//     data.push({"index": d,"active": d / iconN < percentNumber})
+// })
+
+
+/**  
+ * DATA - TODO: load data from csv
+*/
+
+d3.csv('tickets.csv').then(data => {
+
+    data.forEach(function(d, i) {
+        d.index = i,
+        d.type = d.type;
+        d.count = parseInt(d.count);
+    });
+
+    console.log(data)
+
+    gridConfig.data = data
+
+    iconGrid = new IconGird(gridConfig)
+})
+
 
 /**
  * CONFIGURATION
