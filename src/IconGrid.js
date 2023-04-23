@@ -48,28 +48,95 @@ class IconGird {
         let iconN = vis.config.colsN * vis.config.rowsN
 
         // The share of circles that should be highlighted
-        let percentNumber = 0.5;
+        let percentNumber = 0.7;
 
         // Generate the circles data: array of indices + "active" info for each cell in the grid
+        // TODO: We need a data category instead of the active boolean
         vis.data =[];
         d3.range(iconN).forEach(function(d){
             vis.data.push({"index": d,"active": d / iconN < percentNumber})
         })
 
         /**
-         * Create circles (temporary Icon alternative)
+         * Create icons (testing first approach)
          */
 
-         // Append circles to grid container & stlyle them according to the data & percentNumber
-        vis.circles = vis.grid.selectAll("circle")
-            .data(vis.data)
-            .enter().append("circle")
+        const arcGenerator = d3.arc()
+            .outerRadius(vis.config.iconR)
+            .innerRadius(0)
+            .startAngle(Math.PI / 2)
+            .endAngle(Math.PI)
+
+        let quarter = vis.grid.append("defs")
+            .append("g")
+            .attr("id","quarterIcon");
+
+        quarter
+            .append("path")
+            .attr("d", d => arcGenerator(d))
+            .attr("transform", d => `translate(${0},${vis.config.iconR}) rotate(${270})`)
+            .attr("fill", "#AC5CEA")
+
+        quarter
+            .append("path")
+            .attr("d", d => arcGenerator(d))
+            .attr("transform", d => `translate(${0},${vis.config.iconR}) rotate(${180})`)
+            .attr("fill", "#AC5CEA")
+
+        quarter
+            .append("path")
+            .attr("d", d => arcGenerator(d))
+            .attr("transform", d => `translate(${0},${-vis.config.iconR}) rotate(${0})`)
+            .attr("fill", "white")
+
+        quarter
+            .append("path")
+            .attr("d", d => arcGenerator(d))
+            .attr("transform", d => `translate(${0},${-vis.config.iconR}) rotate(${90})`)
+            .attr("fill", "white")
+
+        let quarterInactive = vis.grid.append("defs")
+            .append("g")
+            .attr("id","quarterInactiveIcon");
+
+        quarterInactive
+            .append("path")
+            .attr("d", d => arcGenerator(d))
+            .attr("fill", "#00A09A")
+
+        quarterInactive
+            .append("path")
+            .attr("d", d => arcGenerator(d))
+            .attr("transform", d => `translate(${0},${0}) rotate(${90})`)
+            .attr("fill", "#00A09A")
+
+        quarterInactive
+            .append("path")
+            .attr("d", d => arcGenerator(d))
+            .attr("transform", d => `translate(${vis.config.iconR},${0}) rotate(${180})`)
+            .attr("fill", "#00A09A")
+
+        quarterInactive
+            .append("path")
+            .attr("d", d => arcGenerator(d))
+            .attr("transform", d => `translate(${-vis.config.iconR},${0}) rotate(${270})`)
+            .attr("fill", "#00A09A")
+
+        vis.grid.selectAll("use")
+            .data(vis.data.filter(d => d.active))
+            .enter().append("use")
+            .attr("xlink:href", "#quarterIcon")
             .attr("id", d => "id" + d.index)
-            .attr('cx', d => x(d.index % vis.config.colsN))
-            .attr('cy', d => y(Math.floor(d.index / vis.config.colsN)))
-            .attr('r', vis.config.iconR)
-            .attr('fill', "white")
-            .attr('opacity', (d) => d.active ? 1 : 0.2)
+            .attr('x', d => x(d.index % vis.config.colsN))
+            .attr('y', d => y(Math.floor(d.index / vis.config.colsN)))
+
+        vis.grid.selectAll("use")
+            .data(vis.data.filter(d => ~d.active))
+            .enter().append("use")
+            .attr("xlink:href", "#quarterInactiveIcon")
+            .attr("id", d => "id" + d.index)
+            .attr('x', d => x(d.index % vis.config.colsN))
+            .attr('y', d => y(Math.floor(d.index / vis.config.colsN)))
 
     }
 
