@@ -45,31 +45,21 @@ class IconGird {
                 id: "icon1",
                 parentElement: vis.grid,
                 radius: vis.config.iconR,
+                startAngle: 0,
+                endAngle: Math.PI,
                 quarter: [
                     {
-                        translateX: 0, 
-                        translateY: vis.config.iconR,
-                        roate: 270,
-                        color: "#AC5CEA"
-                    },
-                    {
                         translateX: 0,
                         translateY: vis.config.iconR,
-                        roate: 180,
+                        roate: -90,
                         color: "#AC5CEA"
-                    },
-                    {
-                        translateX: 0,
-                        translateY: -vis.config.iconR,
-                        roate: 0,
-                        color: "#ffffff"
                     },
                     {
                         translateX: 0,
                         translateY: -vis.config.iconR,
                         roate: 90,
                         color: "#ffffff"
-                    },
+                    }
     
                 ]
             }),
@@ -77,6 +67,8 @@ class IconGird {
                 id: "icon2",
                 parentElement: vis.grid,
                 radius: vis.config.iconR,
+                startAngle: Math.PI / 2,
+                endAngle: Math.PI,
                 quarter: [
                     {
                         translateX: 0, 
@@ -109,32 +101,16 @@ class IconGird {
                 id: "icon3",
                 parentElement: vis.grid,
                 radius: vis.config.iconR,
+                startAngle: 0,
+                endAngle: Math.PI * 2,
                 quarter: [
-                    {
+                    { 
+
                         translateX: 0, 
                         translateY: 0,
                         roate: 0,
                         color: "#FFE184"
-                    },
-                    {
-                        translateX: 0,
-                        translateY: 0,
-                        roate: 90,
-                        color: "#FFE184"
-                    },
-                    {
-                        translateX: 0,
-                        translateY: 0,
-                        roate: 180,
-                        color: "#FFE184"
-                    },
-                    {
-                        translateX: 0,
-                        translateY: 0,
-                        roate: 270,
-                        color: "#FFE184"
                     }
-    
                 ]
             }),
         ]

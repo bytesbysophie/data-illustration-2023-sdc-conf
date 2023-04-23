@@ -6,6 +6,8 @@ class Icon {
         this.id = _config.id
         this.parentElement = _config.parentElement
         this.radius = _config.radius
+        this.startAngle = _config.startAngle
+        this.endAngle = _config.endAngle
 
         // Expected: array with 4 entries in the form of         
         // {
@@ -14,7 +16,7 @@ class Icon {
         //     roate: 0,
         //     color: "#00A09A"
         // }
-        this.quarter = _config.quarter
+        this.sections = _config.quarter
 
         this.initVis()
     }
@@ -29,21 +31,21 @@ class Icon {
         const arcGenerator = d3.arc()
             .outerRadius(vis.radius)
             .innerRadius(0)
-            .startAngle(Math.PI / 2)
-            .endAngle(Math.PI)
+            .startAngle(this.startAngle)
+            .endAngle(this.endAngle)
 
         // Append icon container
         vis.icon = vis.parentElement.append("defs")
             .append("g")
             .attr("id", vis.id)
 
-        // Append path for each quarter of the icon depending on the quarter configs
-        for (let i in vis.quarter) {
+        // Append path for each section of the icon depending on the section configs
+        for (let i in vis.sections) {
             vis.icon
                 .append("path")
                 .attr("d", d => arcGenerator(d))
-                .attr("transform", d => `translate(${vis.quarter[i].translateX},${vis.quarter[i].translateY}) rotate(${vis.quarter[i].roate})`)
-                .attr("fill", vis.quarter[i].color)
+                .attr("transform", d => `translate(${vis.sections[i].translateX},${vis.sections[i].translateY}) rotate(${vis.sections[i].roate})`)
+                .attr("fill", vis.sections[i].color)
         }
     }
 
