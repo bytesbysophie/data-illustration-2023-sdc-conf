@@ -24,28 +24,28 @@ const iconGrid = new IconGird(gridConfig)
 // Configuration GUI
 const gui = new GUI();
 
-gui.add( gridConfig, 'width', 100, 600, 1)
+gui.add( gridConfig, 'width', 0, 1200, 1)
     .name("Width")
     .onFinishChange( value => {
         iconGrid.config.width = value
         iconGrid.updateVis()
     })
 
-gui.add( gridConfig, 'height', 100, 600, 1)
+gui.add( gridConfig, 'height', 0, 1200, 1)
     .name("Height")
     .onChange( value => {
         iconGrid.config.height = value
         iconGrid.updateVis()
     })
 
-gui.add( gridConfig, 'colsN', 4, 10, 1)
+gui.add( gridConfig, 'colsN', 0, 10, 1)
     .name("Columns")
     .onChange( value => {
         iconGrid.config.colsN = value
         iconGrid.updateVis()
     })
     
-gui.add( gridConfig, 'rowsN', 4, 10, 1)
+gui.add( gridConfig, 'rowsN', 0, 10, 1)
     .name("Rows")
     .onChange( value => {
         iconGrid.config.rowsN = value

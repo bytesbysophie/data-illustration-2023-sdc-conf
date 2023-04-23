@@ -31,10 +31,10 @@ class IconGird {
         /**
          * Create Icon Grid
          */
-        var y = d3.scaleBand()
+        let y = d3.scaleBand()
             .range([0,vis.config.height])
             .domain(d3.range(vis.config.rowsN));
-        var x = d3.scaleBand()
+        let x = d3.scaleBand()
             .range([0, vis.config.width])
             .domain(d3.range(vis.config.colsN));
 
@@ -53,14 +53,14 @@ class IconGird {
         // Generate the circles data: array of indices + "active" info for each cell in the grid
         vis.data =[];
         d3.range(iconN).forEach(function(d){
-            vis.data.push({"index": d, "percentNumber": d+1,"active": d / iconN < percentNumber})
+            vis.data.push({"index": d,"active": d / iconN < percentNumber})
         })
 
         /**
          * Create circles (temporary Icon alternative)
          */
 
-         // Append circles to grid container & stlyle them accorting to the data & percentNumber
+         // Append circles to grid container & stlyle them according to the data & percentNumber
         vis.circles = vis.grid.selectAll("circle")
             .data(vis.data)
             .enter().append("circle")
@@ -76,7 +76,7 @@ class IconGird {
     updateVis() {
         console.log("update vis")
         let vis = this
-        
+
         /**
          * Update SVG
          */
@@ -84,8 +84,32 @@ class IconGird {
             .attr("width", vis.config.width)
             .attr("height", vis.config.height)
             .style('background-color', vis.config.background)
-        vis.circles
+
+        /**
+         * Update Circles
+         */
+
+        let y = d3.scaleBand()
+            .range([0,vis.config.height])
+            .domain(d3.range(vis.config.rowsN));
+        let x = d3.scaleBand()
+            .range([0, vis.config.width])
+            .domain(d3.range(vis.config.colsN));
+
+        vis.grid
+            .attr("transform", `translate(${vis.config.width/(vis.config.colsN * 2)}, ${vis.config.height/(vis.config.rowsN * 2) })`);
+
+        // Append circles to grid container & stlyle them according to the data & percentNumber
+        vis.grid.selectAll("circle").remove();
+        vis.circles = vis.grid.selectAll("circle")
+            .data(vis.data)
+            .enter().append("circle")
+            .attr("id", d => "id" + d.index)
+            .attr('cx', d => x(d.index % vis.config.colsN))
+            .attr('cy', d => y(Math.floor(d.index / vis.config.colsN)))
             .attr('r', vis.config.iconR)
+            .attr('fill', "white")
+            .attr('opacity', (d) => d.active ? 1 : 0.2)
         
         } 
 
