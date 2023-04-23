@@ -1,4 +1,5 @@
 import * as d3 from "d3"
+import { Icon } from "./Icon";
 
 class IconGird {
 
@@ -12,6 +13,8 @@ class IconGird {
             iconR: _config.iconR,
             background: _config.background
         }
+
+
 
         this.initVis();
     }
@@ -31,15 +34,117 @@ class IconGird {
         /**
          * Create Icon Grid
          */
+        vis.grid = vis.svg.append("g")
+            .attr("transform", `translate(${vis.config.width/(vis.config.colsN * 2)}, ${vis.config.height/(vis.config.rowsN * 2) })`);
+
+        /**
+         * Create Icon List
+         */
+        vis.icons = [
+            new Icon({
+                id: "icon1",
+                parentElement: vis.grid,
+                radius: vis.config.iconR,
+                quarter: [
+                    {
+                        translateX: 0, 
+                        translateY: vis.config.iconR,
+                        roate: 270,
+                        color: "#AC5CEA"
+                    },
+                    {
+                        translateX: 0,
+                        translateY: vis.config.iconR,
+                        roate: 180,
+                        color: "#AC5CEA"
+                    },
+                    {
+                        translateX: 0,
+                        translateY: -vis.config.iconR,
+                        roate: 0,
+                        color: "#ffffff"
+                    },
+                    {
+                        translateX: 0,
+                        translateY: -vis.config.iconR,
+                        roate: 90,
+                        color: "#ffffff"
+                    },
+    
+                ]
+            }),
+            new Icon({
+                id: "icon2",
+                parentElement: vis.grid,
+                radius: vis.config.iconR,
+                quarter: [
+                    {
+                        translateX: 0, 
+                        translateY: 0,
+                        roate: 0,
+                        color: "#00A09A"
+                    },
+                    {
+                        translateX: 0,
+                        translateY: 0,
+                        roate: 90,
+                        color: "#00A09A"
+                    },
+                    {
+                        translateX: vis.config.iconR,
+                        translateY: 0,
+                        roate: 180,
+                        color: "#00A09A"
+                    },
+                    {
+                        translateX: -vis.config.iconR,
+                        translateY: 0,
+                        roate: 270,
+                        color: "#00A09A"
+                    }
+    
+                ]
+            }),
+            new Icon({
+                id: "icon3",
+                parentElement: vis.grid,
+                radius: vis.config.iconR,
+                quarter: [
+                    {
+                        translateX: 0, 
+                        translateY: 0,
+                        roate: 0,
+                        color: "#FFE184"
+                    },
+                    {
+                        translateX: 0,
+                        translateY: 0,
+                        roate: 90,
+                        color: "#FFE184"
+                    },
+                    {
+                        translateX: 0,
+                        translateY: 0,
+                        roate: 180,
+                        color: "#FFE184"
+                    },
+                    {
+                        translateX: 0,
+                        translateY: 0,
+                        roate: 270,
+                        color: "#FFE184"
+                    }
+    
+                ]
+            }),
+        ]
+        
         let y = d3.scaleBand()
             .range([0,vis.config.height])
             .domain(d3.range(vis.config.rowsN));
         let x = d3.scaleBand()
             .range([0, vis.config.width])
             .domain(d3.range(vis.config.colsN));
-
-        vis.grid = vis.svg.append("g")
-            .attr("transform", `translate(${vis.config.width/(vis.config.colsN * 2)}, ${vis.config.height/(vis.config.rowsN * 2) })`);
 
         /**
          * Define data
@@ -58,86 +163,16 @@ class IconGird {
         })
 
         /**
-         * Create icons (testing first approach)
+         * Add icons to grid
+         * TODO: Use d3 categorical scale to assign icons
          */
-
-        const arcGenerator = d3.arc()
-            .outerRadius(vis.config.iconR)
-            .innerRadius(0)
-            .startAngle(Math.PI / 2)
-            .endAngle(Math.PI)
-
-        let quarter = vis.grid.append("defs")
-            .append("g")
-            .attr("id","quarterIcon");
-
-        quarter
-            .append("path")
-            .attr("d", d => arcGenerator(d))
-            .attr("transform", d => `translate(${0},${vis.config.iconR}) rotate(${270})`)
-            .attr("fill", "#AC5CEA")
-
-        quarter
-            .append("path")
-            .attr("d", d => arcGenerator(d))
-            .attr("transform", d => `translate(${0},${vis.config.iconR}) rotate(${180})`)
-            .attr("fill", "#AC5CEA")
-
-        quarter
-            .append("path")
-            .attr("d", d => arcGenerator(d))
-            .attr("transform", d => `translate(${0},${-vis.config.iconR}) rotate(${0})`)
-            .attr("fill", "white")
-
-        quarter
-            .append("path")
-            .attr("d", d => arcGenerator(d))
-            .attr("transform", d => `translate(${0},${-vis.config.iconR}) rotate(${90})`)
-            .attr("fill", "white")
-
-        let quarterInactive = vis.grid.append("defs")
-            .append("g")
-            .attr("id","quarterInactiveIcon");
-
-        quarterInactive
-            .append("path")
-            .attr("d", d => arcGenerator(d))
-            .attr("fill", "#00A09A")
-
-        quarterInactive
-            .append("path")
-            .attr("d", d => arcGenerator(d))
-            .attr("transform", d => `translate(${0},${0}) rotate(${90})`)
-            .attr("fill", "#00A09A")
-
-        quarterInactive
-            .append("path")
-            .attr("d", d => arcGenerator(d))
-            .attr("transform", d => `translate(${vis.config.iconR},${0}) rotate(${180})`)
-            .attr("fill", "#00A09A")
-
-        quarterInactive
-            .append("path")
-            .attr("d", d => arcGenerator(d))
-            .attr("transform", d => `translate(${-vis.config.iconR},${0}) rotate(${270})`)
-            .attr("fill", "#00A09A")
-
         vis.grid.selectAll("use")
-            .data(vis.data.filter(d => d.active))
+            .data(vis.data)
             .enter().append("use")
-            .attr("xlink:href", "#quarterIcon")
+            .attr("xlink:href", d => d.active ? `#${vis.icons[0].id}` : `#${vis.icons[2].id}`)
             .attr("id", d => "id" + d.index)
             .attr('x', d => x(d.index % vis.config.colsN))
             .attr('y', d => y(Math.floor(d.index / vis.config.colsN)))
-
-        vis.grid.selectAll("use")
-            .data(vis.data.filter(d => ~d.active))
-            .enter().append("use")
-            .attr("xlink:href", "#quarterInactiveIcon")
-            .attr("id", d => "id" + d.index)
-            .attr('x', d => x(d.index % vis.config.colsN))
-            .attr('y', d => y(Math.floor(d.index / vis.config.colsN)))
-
     }
 
     updateVis() {
