@@ -125,16 +125,17 @@ class IconGird {
         let i = d3.scaleOrdinal()
             .range(d3.map(vis.icons, d => d.id))
             .domain(d3.map(vis.config.data, d => d.type))
-
+        console.log(i("team"))
 
         /**
          * Add icons to grid
          * TODO: Use d3 categorical scale to assign icons
          */
+    
         vis.grid.selectAll("use")
             .data(vis.config.data)
             .enter().append("use")
-            .attr("xlink:href", d => `#${i(d)}`)
+            .attr("xlink:href", d => `#${i(d.type)}`)
             .attr("id", d => "id" + d.index)
             .attr('x', d => x(d.index % vis.config.colsN))
             .attr('y', d => y(Math.floor(d.index / vis.config.colsN)))
