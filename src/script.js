@@ -9,9 +9,10 @@ import { IconGird } from "./IconGrid"
 const gridConfig = {}
 gridConfig.parentElement = "#grid-container"
 gridConfig.width = 400
-gridConfig.height = 400
-gridConfig.colsN = 5
+gridConfig.height = 800
+gridConfig.colsN = 3
 gridConfig.rowsN = 5
+gridConfig.iconR = 25
 gridConfig.background = '#c898c6'
 
 const iconGrid = new IconGird(gridConfig)
@@ -23,31 +24,38 @@ const iconGrid = new IconGird(gridConfig)
 // Configuration GUI
 const gui = new GUI();
 
-gui.add( gridConfig, 'width', 100, 600 )
+gui.add( gridConfig, 'width', 100, 600, 1)
     .name("Width")
     .onFinishChange( value => {
         iconGrid.config.width = value
         iconGrid.updateVis()
     })
 
-gui.add( gridConfig, 'height', 100, 600 )
+gui.add( gridConfig, 'height', 100, 600, 1)
     .name("Height")
     .onChange( value => {
         iconGrid.config.height = value
         iconGrid.updateVis()
     })
 
-gui.add( gridConfig, 'colsN', 4, 10 )
+gui.add( gridConfig, 'colsN', 4, 10, 1)
     .name("Columns")
     .onChange( value => {
         iconGrid.config.colsN = value
         iconGrid.updateVis()
     })
     
-gui.add( gridConfig, 'rowsN', 4, 10 )
+gui.add( gridConfig, 'rowsN', 4, 10, 1)
     .name("Rows")
     .onChange( value => {
         iconGrid.config.rowsN = value
+        iconGrid.updateVis()
+    })
+
+gui.add( gridConfig, 'iconR', 0, 100, 1)
+    .name("Icon Radius")
+    .onChange( value => {
+        iconGrid.config.iconR = value
         iconGrid.updateVis()
     })
 
