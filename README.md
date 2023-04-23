@@ -1,4 +1,4 @@
-# Data Illustration for the Social Develeopers Club Conference 2023
+# Data Illustration for the Social Developers Club Conference 2023
 
 ## Setup
 _The setup is based on the project template from Three.js Journey by Bruno Simon_
