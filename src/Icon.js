@@ -6,6 +6,7 @@ class Icon {
         this.id = _config.id
         this.parentElement = _config.parentElement
         this.radius = _config.radius
+        this.innerRadius = _config.innerRadius || 0
         this.startAngle = _config.startAngle
         this.endAngle = _config.endAngle
 
@@ -30,7 +31,7 @@ class Icon {
          */
         const arcGenerator = d3.arc()
             .outerRadius(vis.radius)
-            .innerRadius(0)
+            .innerRadius(vis.innerRadius)
             .startAngle(this.startAngle)
             .endAngle(this.endAngle)
 
@@ -41,6 +42,17 @@ class Icon {
 
         // Append path for each section of the icon depending on the section configs
         for (let i in vis.sections) {
+
+            /**
+             * Create defs for Icon
+             */
+            const arcGenerator = d3.arc()
+            .outerRadius(vis.radius)
+            .innerRadius(vis.sections[i].innerRadius || 0)
+            .startAngle(this.startAngle)
+            .endAngle(this.endAngle)
+
+
             vis.icon
                 .append("path")
                 .attr("d", d => arcGenerator(d))

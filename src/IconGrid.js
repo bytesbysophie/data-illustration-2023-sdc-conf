@@ -51,12 +51,14 @@ class IconGird {
                         translateX: 0,
                         translateY: vis.config.iconR,
                         roate: -90,
+                        innerRadius: vis.config.iconR / 2,
                         color: "#AC5CEA"
                     },
                     {
                         translateX: 0,
                         translateY: -vis.config.iconR,
                         roate: 90,
+                        innerRadius: vis.config.iconR / 2,
                         color: "#ffffff"
                     }
     
@@ -73,7 +75,7 @@ class IconGird {
                         translateX: 0, 
                         translateY: 0,
                         roate: 0,
-                        color: "#00A09A"
+                        color: "#ffffff"
                     },
                     {
                         translateX: 0,
@@ -85,7 +87,7 @@ class IconGird {
                         translateX: vis.config.iconR,
                         translateY: 0,
                         roate: 180,
-                        color: "#00A09A"
+                        color: "#ffffff"
                     },
                     {
                         translateX: -vis.config.iconR,
@@ -112,6 +114,102 @@ class IconGird {
                     }
                 ]
             }),
+            new Icon({
+                id: "icon4",
+                parentElement: vis.grid,
+                radius: vis.config.iconR,
+                startAngle: Math.PI / 2,
+                endAngle: Math.PI,
+                quarter: [
+                    {
+                        translateX: -vis.config.iconR, 
+                        translateY: -vis.config.iconR,
+                        roate: 0,
+                        color: "#4FA3AB",
+                    },
+                    {
+                        translateX: vis.config.iconR,
+                        translateY: -vis.config.iconR,
+                        roate: 90,
+                        color: "#4FA3AB"
+                    },
+                    {
+                        translateX: vis.config.iconR,
+                        translateY: vis.config.iconR,
+                        roate: 180,
+                        color: "#4FA3AB"
+                    },
+                    {
+                        translateX: -vis.config.iconR,
+                        translateY: vis.config.iconR,
+                        roate: 270,
+                        color: "#4FA3AB"
+                    }
+    
+                ]
+            }),
+            new Icon({
+                id: "icon5",
+                parentElement: vis.grid,
+                radius: vis.config.iconR,
+                startAngle: 0,
+                endAngle: Math.PI,
+                quarter: [
+                    {
+                        translateX: 0,
+                        translateY: 0,
+                        roate: 0,
+                        innerRadius: vis.config.iconR / 2,
+                        color: "#AC5CEA"
+                    },
+                    {
+                        translateX:  -vis.config.iconR,
+                        translateY: 0,
+                        roate:0,
+                        color: "#FFE184"
+                    }
+    
+                ]
+            }),
+            new Icon({
+                id: "icon6",
+                parentElement: vis.grid,
+                radius: vis.config.iconR,
+                startAngle: Math.PI / 2,
+                endAngle: Math.PI,
+                quarter: [
+                    {
+                        translateX: vis.config.iconR, 
+                        translateY: -vis.config.iconR,
+                        roate: 90,
+                        
+                        color: "#FFE184"
+                    },
+                    {
+                        translateX: 0,
+                        translateY: 0,
+                        roate: 0,
+                        innerRadius: vis.config.iconR / 2,
+
+                        color: "#00A09A"
+                    },
+                    {
+                        translateX: -vis.config.iconR,
+                        translateY: vis.config.iconR,
+                        roate: 270,
+                        color: "#FFE184"
+                    },
+                    {
+                        translateX: 0,
+                        translateY: 0,
+                        roate: 180,
+                                                innerRadius: vis.config.iconR / 2,
+
+                        color: "#00A09A"
+                    }
+    
+                ]
+            }),
         ]
         
         let y = d3.scaleBand()
@@ -129,8 +227,7 @@ class IconGird {
 
         /**
          * Add icons to grid
-         * TODO: Use d3 categorical scale to assign icons
-         */
+s         */
     
         vis.grid.selectAll("use")
             .data(vis.config.data)

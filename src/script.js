@@ -8,8 +8,8 @@ import { IconGird } from "./IconGrid"
 const gridConfig = {}
 gridConfig.parentElement = "#grid-container"
 gridConfig.width = 300
-gridConfig.height = 800
-gridConfig.iconR = 10
+gridConfig.height = 900
+gridConfig.iconR = 12
 gridConfig.background = '#1B1818'
 
 let iconGrid
