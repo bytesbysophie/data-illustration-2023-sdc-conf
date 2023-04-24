@@ -29,11 +29,8 @@ class Icon {
         /**
          * Create defs for Icon
          */
+
         const arcGenerator = d3.arc()
-            .outerRadius(vis.radius)
-            .innerRadius(vis.innerRadius)
-            .startAngle(this.startAngle)
-            .endAngle(this.endAngle)
 
         // Append icon container
         vis.icon = vis.parentElement.append("defs")
@@ -43,15 +40,11 @@ class Icon {
         // Append path for each section of the icon depending on the section configs
         for (let i in vis.sections) {
 
-            /**
-             * Create defs for Icon
-             */
-            const arcGenerator = d3.arc()
-            .outerRadius(vis.radius)
-            .innerRadius(vis.sections[i].innerRadius || 0)
-            .startAngle(this.startAngle)
-            .endAngle(this.endAngle)
-
+            arcGenerator
+                .outerRadius(vis.radius)
+                .innerRadius(vis.sections[i].innerRadius || 0)
+                .startAngle(this.startAngle)
+                .endAngle(this.endAngle)
 
             vis.icon
                 .append("path")
