@@ -126,13 +126,13 @@ class IconGird {
                         translateX: -vis.config.iconR, 
                         translateY: -vis.config.iconR,
                         roate: 0,
-                        color: "#4FA3AB",
+                        color: "#FFE184",
                     },
                     {
                         translateX: vis.config.iconR,
                         translateY: -vis.config.iconR,
                         roate: 90,
-                        color: "#4FA3AB"
+                        color: "#FFE184"
                     },
                     {
                         translateX: vis.config.iconR,
