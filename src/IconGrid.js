@@ -103,6 +103,7 @@ class IconGird {
                 id: "icon3",
                 parentElement: vis.grid,
                 radius: vis.config.iconR,
+                innerRadius: vis.config.iconR / 2,
                 startAngle: 0,
                 endAngle: Math.PI * 2,
                 quarter: [

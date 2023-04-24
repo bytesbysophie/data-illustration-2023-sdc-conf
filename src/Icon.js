@@ -40,11 +40,12 @@ class Icon {
         // Append path for each section of the icon depending on the section configs
         for (let i in vis.sections) {
 
+            // The following attributes can be configured for each section of the icon or for all at once
             arcGenerator
-                .outerRadius(vis.radius)
-                .innerRadius(vis.sections[i].innerRadius || 0)
-                .startAngle(this.startAngle)
-                .endAngle(this.endAngle)
+                .outerRadius(vis.sections[i].radius || vis.radius)
+                .startAngle(vis.sections[i].startAngle || vis.startAngle)
+                .endAngle(vis.sections[i].endAngle || vis.endAngle)
+                .innerRadius(vis.sections[i].innerRadius || vis.innerRadius || 0)
 
             vis.icon
                 .append("path")
