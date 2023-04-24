@@ -38,6 +38,7 @@ class IconGird {
 
         /**
          * Create Icon List
+         * TODO: create JSON to load icon config from
          */
         vis.icons = [
             new Icon({
@@ -183,7 +184,7 @@ class IconGird {
                         translateY: -vis.config.iconR,
                         roate: 90,
                         
-                        color: "#FFE184"
+                        color: "#00A09A"
                     },
                     {
                         translateX: 0,
@@ -197,14 +198,13 @@ class IconGird {
                         translateX: -vis.config.iconR,
                         translateY: vis.config.iconR,
                         roate: 270,
-                        color: "#FFE184"
+                        color: "#00A09A"
                     },
                     {
                         translateX: 0,
                         translateY: 0,
                         roate: 180,
-                                                innerRadius: vis.config.iconR / 2,
-
+                        innerRadius: vis.config.iconR / 2,
                         color: "#00A09A"
                     }
     
