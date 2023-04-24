@@ -6,6 +6,7 @@ class Icon {
         this.id = _config.id
         this.parentElement = _config.parentElement
         this.radius = _config.radius
+        this.scale = _config.scale || 1
         this.innerRadius = _config.innerRadius || 0
         this.startAngle = _config.startAngle
         this.endAngle = _config.endAngle
@@ -30,29 +31,39 @@ class Icon {
          * Create defs for Icon
          */
 
-        const arcGenerator = d3.arc()
+        vis.arcGenerator = d3.arc()
 
         // Append icon container
         vis.icon = vis.parentElement.append("defs")
             .append("g")
             .attr("id", vis.id)
 
+        vis.updateVis()
+    }
+
+    updateVis() {
+        console.log("update vis Icon")
+        let vis = this
+        vis.icon.selectAll("path").remove();
+
         // Append path for each section of the icon depending on the section configs
         for (let i in vis.sections) {
 
             // The following attributes can be configured for each section of the icon or for all at once
-            arcGenerator
-                .outerRadius(vis.sections[i].radius || vis.radius)
+            vis.arcGenerator
+                .outerRadius(vis.sections[i].radius * vis.scale || vis.radius * vis.scale)
                 .startAngle(vis.sections[i].startAngle || vis.startAngle)
                 .endAngle(vis.sections[i].endAngle || vis.endAngle)
-                .innerRadius(vis.sections[i].innerRadius || vis.innerRadius || 0)
-
+                .innerRadius(vis.sections[i].innerRadius * vis.scale || vis.innerRadius * vis.scale || 0)
+            
             vis.icon
                 .append("path")
-                .attr("d", d => arcGenerator(d))
-                .attr("transform", d => `translate(${vis.sections[i].translateX},${vis.sections[i].translateY}) rotate(${vis.sections[i].roate})`)
+                .attr("d", d => vis.arcGenerator(d))
+                .attr("transform", d => `translate(${vis.sections[i].translateX * vis.scale},${vis.sections[i].translateY * vis.scale}) 
+                                        rotate(${vis.sections[i].roate})`)
                 .attr("fill", vis.sections[i].color)
         }
+
     }
 
 }

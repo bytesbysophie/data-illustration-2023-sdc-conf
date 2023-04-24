@@ -213,36 +213,21 @@ class IconGird {
             }),
         ]
         
-        let y = d3.scaleBand()
-            .range([0,vis.config.height])
-            .domain(d3.range(vis.config.rowsN));
-        let x = d3.scaleBand()
-            .range([0, vis.config.width])
-            .domain(d3.range(vis.config.colsN));
-
-        // Icon scale
-        let i = d3.scaleOrdinal()
-            .range(d3.map(vis.icons, d => d.id))
-            .domain(d3.map(vis.config.data, d => d.type))
-        console.log(i("team"))
-
         /**
-         * Add icons to grid
-s         */
-    
-        vis.grid.selectAll("use")
-            .data(vis.config.data)
-            .enter().append("use")
-            .attr("xlink:href", d => `#${i(d.type)}`)
-            .attr("id", d => "id" + d.index)
-            .attr('x', d => x(d.index % vis.config.colsN))
-            .attr('y', d => y(Math.floor(d.index / vis.config.colsN)))
+         * Creaate Scales
+         */
+        vis.y = d3.scaleBand()
+        vis.x = d3.scaleBand()
+        // Icon scale
+        vis.i = d3.scaleOrdinal()
+
+        vis.updateVis()
     }
 
     updateVis() {
-        console.log("update vis")
+        console.log("update vis IconGrid")
         let vis = this
-
+        
         /**
          * Update SVG
          */
@@ -252,30 +237,37 @@ s         */
             .style('background-color', vis.config.background)
 
         /**
-         * Update Circles
+         * Update Scales
          */
 
-        let y = d3.scaleBand()
+        vis.y
             .range([0,vis.config.height])
             .domain(d3.range(vis.config.rowsN));
-        let x = d3.scaleBand()
+        vis.x
             .range([0, vis.config.width])
             .domain(d3.range(vis.config.colsN));
+        vis.i
+            .range(d3.map(vis.icons, d => d.id))
+            .domain(d3.map(vis.config.data, d => d.type))
+
+        /**
+         * Add icons to grid
+         */
+        vis.grid.selectAll("use").remove();
+
+        vis.grid.selectAll("use")
+            .data(vis.config.data)
+            .enter().append("use")
+            .attr("xlink:href", d => `#${vis.i(d.type)}`)
+            .attr("id", d => "id" + d.index)
+            .attr('x', d => vis.x(d.index % vis.config.colsN))
+            .attr('y', d => vis.y(Math.floor(d.index / vis.config.colsN)))
+
+
 
         vis.grid
             .attr("transform", `translate(${vis.config.width/(vis.config.colsN * 2)}, ${vis.config.height/(vis.config.rowsN * 2) })`);
 
-        // Append circles to grid container & stlyle them according to the data & percentNumber
-        vis.grid.selectAll("circle").remove();
-        vis.circles = vis.grid.selectAll("circle")
-            .data(vis.config.data)
-            .enter().append("circle")
-            .attr("id", d => "id" + d.index)
-            .attr('cx', d => x(d.index % vis.config.colsN))
-            .attr('cy', d => y(Math.floor(d.index / vis.config.colsN)))
-            .attr('r', vis.config.iconR)
-            .attr('fill', "white")
-            .attr('opacity', (d) => d.active ? 1 : 0.2)
         
         } 
 

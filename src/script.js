@@ -9,7 +9,8 @@ const gridConfig = {}
 gridConfig.parentElement = "#grid-container"
 gridConfig.width = 300
 gridConfig.height = 900
-gridConfig.iconR = 12
+gridConfig.iconR = 10
+gridConfig.scale = 1
 gridConfig.background = '#1B1818'
 
 let iconGrid
@@ -33,7 +34,7 @@ d3.csv('tickets.csv').then(data => {
 
     gridConfig.data = gridData
     gridConfig.colsN = 6
-    gridConfig.rowsN = gridConfig.data.length / gridConfig.colsN
+    gridConfig.rowsN = Math.ceil(gridConfig.data.length / gridConfig.colsN)
 
     iconGrid = new IconGird(gridConfig)
     addConfigurationMenu()
@@ -62,24 +63,28 @@ function addConfigurationMenu() {
             iconGrid.updateVis()
         })
 
-    gui.add( gridConfig, 'colsN', 0, 10, 1)
+    gui.add( gridConfig, 'colsN', 0, 50, 1)
         .name("Columns")
         .onChange( value => {
             iconGrid.config.colsN = value
             iconGrid.updateVis()
         })
         
-    gui.add( gridConfig, 'rowsN', 0, 10, 1)
+    gui.add( gridConfig, 'rowsN', 0, 50, 1)
         .name("Rows")
         .onChange( value => {
             iconGrid.config.rowsN = value
             iconGrid.updateVis()
         })
 
-    gui.add( gridConfig, 'iconR', 0, 100, 1)
-        .name("Icon Radius")
+    gui.add( gridConfig, 'scale', 0, 5)
+        .name("Icon Scale")
         .onChange( value => {
             iconGrid.config.iconR = value
+            iconGrid.icons.forEach(i => {
+                i.scale = value
+                i.updateVis()
+            })
             iconGrid.updateVis()
         })
 
