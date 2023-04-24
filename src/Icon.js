@@ -20,7 +20,7 @@ class Icon {
         //     color: "#00A09A"
         // }
         this.sections = _config.quarter
-        console.log(this)
+
         this.initVis()
     }
 
@@ -56,7 +56,7 @@ class Icon {
                 .startAngle(vis.sections[i].startAngle || vis.startAngle)
                 .endAngle(vis.sections[i].endAngle || vis.endAngle)
                 .innerRadius(vis.sections[i].innerRadius * vis.scale || vis.innerRadius * vis.scale || 0)
-            console.log(vis.colors)
+
             vis.icon
                 .append("path")
                 .attr("d", d => vis.arcGenerator(d))

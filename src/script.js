@@ -9,10 +9,11 @@ const gridConfig = {}
 gridConfig.parentElement = "#grid-container"
 gridConfig.width = 300
 gridConfig.height = 900
-gridConfig.iconR = 10
+gridConfig.iconR = 15
+gridConfig.colsN = 7
 gridConfig.scale = 1
 gridConfig.background = '#1B1818'
-gridConfig.iconColors = ['#AC5CEA','#00A09A', '#ffffff', '#FFE184', '#4FA3AB']
+gridConfig.iconColors = ['#AC5CEA','#62bde4', '#ffffff', '#FFE184', '#00A09A']
 
 let iconGrid
 
@@ -30,11 +31,12 @@ d3.csv('tickets.csv').then(data => {
             gridData.push({type: d.type})
         }
     })
+    gridData = d3.shuffle(gridData)
     gridData.forEach((d, i) => d.index = i)
+
     console.log(gridData)
 
     gridConfig.data = gridData
-    gridConfig.colsN = 6
     gridConfig.rowsN = Math.ceil(gridConfig.data.length / gridConfig.colsN)
 
     iconGrid = new IconGird(gridConfig)
@@ -52,7 +54,7 @@ function addConfigurationMenu() {
 
     gui.add( gridConfig, 'width', 0, 1200, 1)
         .name("Width")
-        .onFinishChange( value => {
+        .onChange( value => {
             iconGrid.config.width = value
             iconGrid.updateVis()
         })

@@ -54,7 +54,7 @@ class IconGird {
                         translateX: 0,
                         translateY: vis.config.iconR,
                         roate: -90,
-                        innerRadius: vis.config.iconR / 2,
+                        // innerRadius: vis.config.iconR / 2,
                         color: 0
                     },
                     {
@@ -189,31 +189,30 @@ class IconGird {
                 quarter: [
                     {
                         translateX: vis.config.iconR, 
-                        translateY: -vis.config.iconR,
-                        roate: 90,
-                        
-                        color: 1
+                        translateY: vis.config.iconR, 
+                        roate: 180,
+                        // innerRadius: vis.config.iconR / 2,
+                        color: 2
                     },
                     {
                         translateX: 0,
                         translateY: 0,
-                        roate: 0,
+                        roate: 270,
                         innerRadius: vis.config.iconR / 2,
-
-                        color: 1
+                        color: 4
                     },
                     {
-                        translateX: -vis.config.iconR,
+                        translateX: -vis.config.iconR, 
                         translateY: vis.config.iconR,
                         roate: 270,
-                        color:1
+                        color:2
                     },
                     {
                         translateX: 0,
                         translateY: 0,
                         roate: 180,
                         innerRadius: vis.config.iconR / 2,
-                        color: 1
+                        color: 4
                     }
     
                 ]
