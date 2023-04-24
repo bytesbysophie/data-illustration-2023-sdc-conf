@@ -12,9 +12,10 @@ class IconGird {
             rowsN: _config.rowsN, 
             iconR: _config.iconR,
             background: _config.background,
+            iconColors: _config.iconColors,
             data: _config.data
         }
-
+        console.log(this)
         this.initVis();
     }
 
@@ -47,20 +48,21 @@ class IconGird {
                 radius: vis.config.iconR,
                 startAngle: 0,
                 endAngle: Math.PI,
+                colors: vis.config.iconColors,
                 quarter: [
                     {
                         translateX: 0,
                         translateY: vis.config.iconR,
                         roate: -90,
                         innerRadius: vis.config.iconR / 2,
-                        color: "#AC5CEA"
+                        color: 0
                     },
                     {
                         translateX: 0,
                         translateY: -vis.config.iconR,
                         roate: 90,
                         innerRadius: vis.config.iconR / 2,
-                        color: "#ffffff"
+                        color: 2
                     }
     
                 ]
@@ -71,30 +73,31 @@ class IconGird {
                 radius: vis.config.iconR,
                 startAngle: Math.PI / 2,
                 endAngle: Math.PI,
+                colors: vis.config.iconColors,
                 quarter: [
                     {
                         translateX: 0, 
                         translateY: 0,
                         roate: 0,
-                        color: "#ffffff"
+                        color: 2
                     },
                     {
                         translateX: 0,
                         translateY: 0,
                         roate: 90,
-                        color: "#00A09A"
+                        color: 1
                     },
                     {
                         translateX: vis.config.iconR,
                         translateY: 0,
                         roate: 180,
-                        color: "#ffffff"
+                        color: 2
                     },
                     {
                         translateX: -vis.config.iconR,
                         translateY: 0,
                         roate: 270,
-                        color: "#00A09A"
+                        color: 1
                     }
     
                 ]
@@ -106,13 +109,14 @@ class IconGird {
                 innerRadius: vis.config.iconR / 2,
                 startAngle: 0,
                 endAngle: Math.PI * 2,
+                colors: vis.config.iconColors,
                 quarter: [
                     { 
 
                         translateX: 0, 
                         translateY: 0,
                         roate: 0,
-                        color: "#FFE184"
+                        color: 3
                     }
                 ]
             }),
@@ -122,30 +126,31 @@ class IconGird {
                 radius: vis.config.iconR,
                 startAngle: Math.PI / 2,
                 endAngle: Math.PI,
+                colors: vis.config.iconColors,
                 quarter: [
                     {
                         translateX: -vis.config.iconR, 
                         translateY: -vis.config.iconR,
                         roate: 0,
-                        color: "#FFE184",
+                        color: 3
                     },
                     {
                         translateX: vis.config.iconR,
                         translateY: -vis.config.iconR,
                         roate: 90,
-                        color: "#FFE184"
+                        color: 3
                     },
                     {
                         translateX: vis.config.iconR,
                         translateY: vis.config.iconR,
                         roate: 180,
-                        color: "#4FA3AB"
+                        color: 4
                     },
                     {
                         translateX: -vis.config.iconR,
                         translateY: vis.config.iconR,
                         roate: 270,
-                        color: "#4FA3AB"
+                        color: 4
                     }
     
                 ]
@@ -156,19 +161,20 @@ class IconGird {
                 radius: vis.config.iconR,
                 startAngle: 0,
                 endAngle: Math.PI,
+                colors: vis.config.iconColors,
                 quarter: [
                     {
                         translateX: 0,
                         translateY: 0,
                         roate: 0,
                         innerRadius: vis.config.iconR / 2,
-                        color: "#AC5CEA"
+                        color: 0
                     },
                     {
                         translateX:  -vis.config.iconR,
                         translateY: 0,
                         roate:0,
-                        color: "#FFE184"
+                        color: 3
                     }
     
                 ]
@@ -179,13 +185,14 @@ class IconGird {
                 radius: vis.config.iconR,
                 startAngle: Math.PI / 2,
                 endAngle: Math.PI,
+                colors: vis.config.iconColors,
                 quarter: [
                     {
                         translateX: vis.config.iconR, 
                         translateY: -vis.config.iconR,
                         roate: 90,
                         
-                        color: "#00A09A"
+                        color: 1
                     },
                     {
                         translateX: 0,
@@ -193,20 +200,20 @@ class IconGird {
                         roate: 0,
                         innerRadius: vis.config.iconR / 2,
 
-                        color: "#00A09A"
+                        color: 1
                     },
                     {
                         translateX: -vis.config.iconR,
                         translateY: vis.config.iconR,
                         roate: 270,
-                        color: "#00A09A"
+                        color:1
                     },
                     {
                         translateX: 0,
                         translateY: 0,
                         roate: 180,
                         innerRadius: vis.config.iconR / 2,
-                        color: "#00A09A"
+                        color: 1
                     }
     
                 ]

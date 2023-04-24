@@ -10,6 +10,7 @@ class Icon {
         this.innerRadius = _config.innerRadius || 0
         this.startAngle = _config.startAngle
         this.endAngle = _config.endAngle
+        this.colors = _config.colors
 
         // Expected: array with 4 entries in the form of         
         // {
@@ -19,7 +20,7 @@ class Icon {
         //     color: "#00A09A"
         // }
         this.sections = _config.quarter
-
+        console.log(this)
         this.initVis()
     }
 
@@ -55,13 +56,13 @@ class Icon {
                 .startAngle(vis.sections[i].startAngle || vis.startAngle)
                 .endAngle(vis.sections[i].endAngle || vis.endAngle)
                 .innerRadius(vis.sections[i].innerRadius * vis.scale || vis.innerRadius * vis.scale || 0)
-            
+            console.log(vis.colors)
             vis.icon
                 .append("path")
                 .attr("d", d => vis.arcGenerator(d))
                 .attr("transform", d => `translate(${vis.sections[i].translateX * vis.scale},${vis.sections[i].translateY * vis.scale}) 
                                         rotate(${vis.sections[i].roate})`)
-                .attr("fill", vis.sections[i].color)
+                .attr("fill", vis.colors[vis.sections[i].color])
         }
 
     }

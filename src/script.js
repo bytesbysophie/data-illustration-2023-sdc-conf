@@ -12,6 +12,7 @@ gridConfig.height = 900
 gridConfig.iconR = 10
 gridConfig.scale = 1
 gridConfig.background = '#1B1818'
+gridConfig.iconColors = ['#AC5CEA','#00A09A', '#ffffff', '#FFE184', '#4FA3AB']
 
 let iconGrid
 
@@ -89,9 +90,7 @@ function addConfigurationMenu() {
         })
 
     const colorFormats = {
-        background: gridConfig.background,
-        object: { r: 1, g: 1, b: 1 },
-        array: [ 1, 1, 1 ]
+        background: gridConfig.background
     };
 
     gui.addColor( colorFormats, 'background' )
@@ -100,4 +99,21 @@ function addConfigurationMenu() {
             iconGrid.config.background = value
             iconGrid.updateVis()
         })
+    
+    gridConfig.iconColors.forEach((c, i) => {
+        const colorFormats = {
+            background: c
+        };
+    
+        gui.addColor( colorFormats, 'background' )
+            .name("Icon Color " + String(i + 1))
+            .onChange( value => {
+                iconGrid.config.iconColors[i] = value
+                iconGrid.icons.forEach(icon => {
+                    icon.colors[i]
+                    icon.updateVis()
+                })
+            })
+        
+    })
 }
