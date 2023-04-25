@@ -1,6 +1,8 @@
 import * as d3 from "d3"
 import GUI from "lil-gui"
 import { IconGird } from "./IconGrid"
+import * as svg from 'save-svg-as-png';
+
 
 /**
  *  ICON GRID CONFIG
@@ -118,4 +120,57 @@ function addConfigurationMenu() {
             })
         
     })
+
+    let obj = {
+        download: download
+    }
+
+    gui.add( obj, 'download' )
+        .name("Download")
+
+}
+function download() {
+
+    let timestamp = new Date().toLocaleDateString('en-EN', { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric'})
+
+    // Download SVG as PNG
+    // svg.saveSvgAsPng(document.getElementsByTagName("svg")[0], `data_illustration_${timestamp}.png`)
+
+    // Prepare data download
+    let csvContentData = "data:text/csv;charset=utf-8," 
+        + "type,index" + "\n" // Add header line
+        + gridConfig.data.map(e => e.type + "," + e.index).join("\n") // Add line for each data entry
+
+    // Prepare config download
+    let configList = []
+    Object.keys(iconGrid.config).forEach(k => {
+        if (k !== 'data') {
+            configList.push({[k]: iconGrid.config[k].toString()})
+        }
+    })
+
+    let csvContentConfig = "data:text/csv;charset=utf-8," 
+        + "key,value" + "\n" // Add header line
+        + configList.map(e => Object.entries(e)[0].join(",")).join("\n") // Add line for each data entry
+
+    let downloadList = [
+        {data: csvContentData, filename: `data_illustration_${timestamp}.csv`}, 
+        {data: csvContentConfig, filename: `data_illustration_config_${timestamp}.csv`}
+    ]
+
+    // Download both data files
+    downloadList.forEach(d => {
+
+        let encodedUri = encodeURI(d.data)
+        let link = document.createElement("a")
+        link.setAttribute("href", encodedUri)
+        link.setAttribute("download", d.filename)
+    
+        document.body.appendChild(link) // Required for FF
+    
+        link.click() // This will download the data file
+
+        document.body.removeChild(link) 
+
+    })  
 }

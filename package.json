@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "d3": "^7.8.4",
-    "lil-gui": "^0.18.1"
+    "lil-gui": "^0.18.1",
+    "save-svg-as-png": "^1.4.17"
   }
 }
