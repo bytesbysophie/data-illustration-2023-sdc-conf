@@ -62,6 +62,7 @@ class Icon {
                 .attr("d", d => vis.arcGenerator(d))
                 .attr("transform", d => `translate(${vis.sections[i].translateX * vis.scale},${vis.sections[i].translateY * vis.scale}) 
                                         rotate(${vis.sections[i].roate})`)
+                .attr("stroke", vis.colors[vis.sections[i].color])
                 .attr("fill", vis.colors[vis.sections[i].color])
         }
 

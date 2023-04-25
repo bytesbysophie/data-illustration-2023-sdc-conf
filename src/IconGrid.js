@@ -191,7 +191,6 @@ class IconGird {
                         translateX: vis.config.iconR, 
                         translateY: vis.config.iconR, 
                         roate: 180,
-                        // innerRadius: vis.config.iconR / 2,
                         color: 2
                     },
                     {
