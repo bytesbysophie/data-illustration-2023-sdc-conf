@@ -2,7 +2,7 @@ import * as d3 from "d3"
 import GUI from "lil-gui"
 import { IconGird } from "./IconGrid"
 import * as svg from 'save-svg-as-png';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 /**
  *  ICON GRID CONFIG
