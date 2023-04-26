@@ -24,7 +24,7 @@ let iconGrid
 */
 
 d3.csv('tickets.csv').then(data => {
-
+    console.log(0x1B1818.toString(16))
     let gridData = []
     data.forEach(d => {
         d.type = d.type;
@@ -134,7 +134,7 @@ function download() {
     let timestamp = new Date().toLocaleDateString('en-EN', { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric'})
 
     // Download SVG as PNG
-    // svg.saveSvgAsPng(document.getElementsByTagName("svg")[0], `data_illustration_${timestamp}.png`)
+    svg.saveSvgAsPng(document.getElementsByTagName("svg")[0], `data_illustration_${timestamp}.png`)
 
     // Prepare data download
     let csvContentData = "data:text/csv;charset=utf-8," 
@@ -143,14 +143,15 @@ function download() {
 
     // Prepare config download
     let configList = []
-    Object.keys(iconGrid.config).forEach(k => {
+    Object.keys(gridConfig).forEach(k => {
         if (k !== 'data') {
-            configList.push({[k]: iconGrid.config[k].toString()})
+            // Remove # from the strings or the CSV creation will bread
+            configList.push({[k]: gridConfig[k].toString().replaceAll("#", "")})
         }
     })
 
-    let csvContentConfig = "data:text/csv;charset=utf-8," 
-        + "key,value" + "\n" // Add header line
+    let csvContentConfig = "data:text/csv;charset=utf-8;" 
+        + "key,value" + "\n" // Add header lines
         + configList.map(e => Object.entries(e)[0].join(",")).join("\n") // Add line for each data entry
 
     let downloadList = [
