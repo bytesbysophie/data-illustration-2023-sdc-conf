@@ -111,6 +111,27 @@ class IconGird {
             .attr("id", d => "id" + d.index)
             .attr('x', d => vis.x(d.index % vis.config.colsN))
             .attr('y', d => vis.y(Math.floor(d.index / vis.config.colsN)))
+            .on('mouseover', function (event, d) {
+                d3.select(this).transition()
+                     .duration('50')
+                     .attr('opacity', '.5')
+                vis.grid.append("text")
+                .attr("x", vis.x(d.index % vis.config.colsN) - 3)
+                .attr("y", vis.y(Math.floor(d.index / vis.config.colsN)) - 3)
+                .attr("dy", "2em")
+                .attr("fill", "black")
+                .attr("font-size", 30)
+                .attr("font-weight", "700")
+                .attr("font-family", "sans-serif")
+                .text(d.type)
+
+            })
+            .on('mouseout', function (event, d) {
+                d3.select(this).transition()
+                     .duration('50')
+                     .attr('opacity', '1')
+                vis.grid.selectAll("text").remove()
+            })
 
         vis.grid
             .attr("transform", `translate(${vis.config.width/(vis.config.colsN * 2)}, ${vis.config.height/(vis.config.rowsN * 2) })`);
