@@ -133,13 +133,18 @@ function download() {
 
     let timestamp = new Date().toLocaleDateString('en-EN', { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric'})
 
-    // Download SVG as PNG
-    svg.saveSvgAsPng(document.getElementsByTagName("svg")[0], `data_illustration_${timestamp}.png`)
+    downloadAsCSV(timestamp)
+    downloadAsPng(timestamp)
+    downloadSettingsAsCsv(timestamp)
+
+}
+
+function downloadSettingsAsCsv(timestamp) {
 
     // Prepare data download
     let csvContentData = "data:text/csv;charset=utf-8," 
-        + "type,index" + "\n" // Add header line
-        + gridConfig.data.map(e => e.type + "," + e.index).join("\n") // Add line for each data entry
+    + "type,index" + "\n" // Add header line
+    + gridConfig.data.map(e => e.type + "," + e.index).join("\n") // Add line for each data entry
 
     // Prepare config download
     let configList = []
@@ -174,4 +179,48 @@ function download() {
         document.body.removeChild(link) 
 
     })  
+}
+
+function downloadAsPng(timestamp) {
+
+    // Download SVG as PNG
+    svg.saveSvgAsPng(document.getElementsByTagName("svg")[0], `data_illustration_${timestamp}.png`)
+
+}
+
+function downloadAsCSV(timestamp) {
+
+    // Download SVG
+    //get svg element.
+    var svg = document.getElementsByTagName("svg")[0];
+
+    //get svg source.
+    var serializer = new XMLSerializer();
+    var source = serializer.serializeToString(svg);
+
+    //add name spaces.
+    if(!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)){
+        source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+    }
+    if(!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)){
+        source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
+    }
+
+    //add xml declaration
+    source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
+
+    //convert svg source to URI data scheme.
+    var encodedUri = "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(source);
+    let link = document.createElement("a")
+
+    link.setAttribute("href", encodedUri)
+    link.setAttribute("download", `data_illustration_${timestamp}.svg`)
+
+    document.body.appendChild(link) // Required for FF
+
+    link.click() // This will download the data file
+
+    document.body.removeChild(link) 
+
+
 }
