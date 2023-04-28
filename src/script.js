@@ -11,6 +11,7 @@ const gridConfig = {}
 gridConfig.parentElement = "#grid-container"
 gridConfig.width = 300
 gridConfig.height = 900
+gridConfig.margin = {top: 20, right: 20, bottom: 20, left: 20}
 gridConfig.iconR = 15
 gridConfig.colsN = 7
 gridConfig.scale = 1
@@ -67,6 +68,16 @@ function addConfigurationMenu() {
             iconGrid.config.height = value
             iconGrid.updateVis()
         })
+
+    Object.keys(gridConfig.margin).forEach(k => {
+        gui.add( gridConfig.margin, k, 0, 200, 2)
+        .name("Margin " + k)
+        .onChange( value => {
+            iconGrid.config.margin[k] = value
+            iconGrid.updateVis()
+        })
+    
+    })
 
     gui.add( gridConfig, 'colsN', 0, 50, 1)
         .name("Columns")

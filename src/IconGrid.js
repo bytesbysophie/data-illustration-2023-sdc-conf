@@ -8,6 +8,7 @@ class IconGird {
             parentElement: _config.parentElement,
             width: _config.width, 
             height: _config.height, 
+            margin: _config.margin,
             colsN: _config.colsN, 
             rowsN: _config.rowsN, 
             iconR: _config.iconR,
@@ -15,7 +16,6 @@ class IconGird {
             iconColors: _config.iconColors,
             data: _config.data
         }
-        console.log(this)
         this.initVis();
     }
 
@@ -219,7 +219,7 @@ class IconGird {
         ]
         
         /**
-         * Creaate Scales
+         * Create Scales
          */
         vis.y = d3.scaleBand()
         vis.x = d3.scaleBand()
@@ -246,10 +246,10 @@ class IconGird {
          */
 
         vis.y
-            .range([0,vis.config.height])
+            .range([vis.config.margin.top, vis.config.height - vis.config.margin.bottom])
             .domain(d3.range(vis.config.rowsN));
         vis.x
-            .range([0, vis.config.width])
+            .range([vis.config.margin.left, vis.config.width - vis.config.margin.right])
             .domain(d3.range(vis.config.colsN));
         vis.i
             .range(d3.map(vis.icons, d => d.id))
