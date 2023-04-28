@@ -12,17 +12,193 @@ gridConfig.parentElement = "#grid-container"
 gridConfig.width = 300
 gridConfig.height = 900
 gridConfig.margin = {top: 20, right: 20, bottom: 20, left: 20}
-gridConfig.iconR = 15
 gridConfig.colsN = 7
 gridConfig.scale = 1
 gridConfig.background = '#1B1818'
+gridConfig.iconR = 15
 gridConfig.iconColors = ['#AC5CEA','#62bde4', '#ffffff', '#FFE184', '#00A09A']
+gridConfig.iconsConfig = [
+    {
+        id: "icon1",
+        parentElement: null,
+        radius: gridConfig.iconR,
+        startAngle: 0,
+        endAngle: Math.PI,
+        colors: gridConfig.iconColors,
+        quarter: [
+            {
+                translateX: 0,
+                translateY: gridConfig.iconR,
+                roate: -90,
+                color: 0
+            },
+            {
+                translateX: 0,
+                translateY: -gridConfig.iconR,
+                roate: 90,
+                innerRadius: gridConfig.iconR / 2,
+                color: 2
+            }
 
-let iconGrid
+        ]
+    },
+    {
+        id: "icon2",
+        parentElement: null,
+        radius: gridConfig.iconR,
+        startAngle: Math.PI / 2,
+        endAngle: Math.PI,
+        colors: gridConfig.iconColors,
+        quarter: [
+            {
+                translateX: 0, 
+                translateY: 0,
+                roate: 0,
+                color: 2
+            },
+            {
+                translateX: 0,
+                translateY: 0,
+                roate: 90,
+                color: 1
+            },
+            {
+                translateX: gridConfig.iconR,
+                translateY: 0,
+                roate: 180,
+                color: 2
+            },
+            {
+                translateX: -gridConfig.iconR,
+                translateY: 0,
+                roate: 270,
+                color: 1
+            }
+
+        ]
+    },
+    {
+        id: "icon3",
+        parentElement: null,
+        radius: gridConfig.iconR,
+        innerRadius: gridConfig.iconR / 2,
+        startAngle: 0,
+        endAngle: Math.PI * 2,
+        colors: gridConfig.iconColors,
+        quarter: [
+            { 
+
+                translateX: 0, 
+                translateY: 0,
+                roate: 0,
+                innerRadius: gridConfig.iconR / 2,
+                color: 3
+            }
+        ]
+    },
+    {
+        id: "icon4",
+        parentElement: null,
+        radius: gridConfig.iconR,
+        startAngle: Math.PI / 2,
+        endAngle: Math.PI,
+        colors: gridConfig.iconColors,
+        quarter: [
+            {
+                translateX: -gridConfig.iconR, 
+                translateY: -gridConfig.iconR,
+                roate: 0,
+                color: 3
+            },
+            {
+                translateX: gridConfig.iconR,
+                translateY: -gridConfig.iconR,
+                roate: 90,
+                color: 3
+            },
+            {
+                translateX: gridConfig.iconR,
+                translateY: gridConfig.iconR,
+                roate: 180,
+                color: 4
+            },
+            {
+                translateX: -gridConfig.iconR,
+                translateY: gridConfig.iconR,
+                roate: 270,
+                color: 4
+            }
+
+        ]
+    },
+    {
+        id: "icon5",
+        parentElement: null,
+        radius: gridConfig.iconR,
+        startAngle: 0,
+        endAngle: Math.PI,
+        colors: gridConfig.iconColors,
+        quarter: [
+            {
+                translateX: 0,
+                translateY: 0,
+                roate: 0,
+                innerRadius: gridConfig.iconR / 2,
+                color: 0
+            },
+            {
+                translateX:  -gridConfig.iconR,
+                translateY: 0,
+                roate:0,
+                color: 3
+            }
+
+        ]
+    },
+    {
+        id: "icon6",
+        parentElement: null,
+        radius: gridConfig.iconR,
+        startAngle: Math.PI / 2,
+        endAngle: Math.PI,
+        colors: gridConfig.iconColors,
+        quarter: [
+            {
+                translateX: gridConfig.iconR, 
+                translateY: gridConfig.iconR, 
+                roate: 180,
+                color: 2
+            },
+            {
+                translateX: 0,
+                translateY: 0,
+                roate: 270,
+                innerRadius: gridConfig.iconR / 2,
+                color: 4
+            },
+            {
+                translateX: -gridConfig.iconR, 
+                translateY: gridConfig.iconR,
+                roate: 270,
+                color:2
+            },
+            {
+                translateX: 0,
+                translateY: 0,
+                roate: 180,
+                innerRadius: gridConfig.iconR / 2,
+                color: 4
+            }
+
+        ]
+    }
+]
+
 
 /**  
  * DATA - TODO: load data from csv
 */
+let iconGrid
 
 d3.csv('tickets.csv').then(data => {
     console.log(0x1B1818.toString(16))
@@ -47,7 +223,7 @@ d3.csv('tickets.csv').then(data => {
 })
 
 /**
- * CONFIGURATION
+ * CONFIGURATION MENU
  */
 function addConfigurationMenu() {
 

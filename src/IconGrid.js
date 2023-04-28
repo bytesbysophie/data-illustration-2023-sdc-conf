@@ -14,6 +14,7 @@ class IconGird {
             iconR: _config.iconR,
             background: _config.background,
             iconColors: _config.iconColors,
+            iconsConfig: _config.iconsConfig,
             data: _config.data
         }
         this.initVis();
@@ -39,184 +40,27 @@ class IconGird {
 
         /**
          * Create Icon List
-         * TODO: create JSON to load icon config from
          */
-        vis.icons = [
-            new Icon({
-                id: "icon1",
+        vis.icons = []
+        vis.config.iconsConfig.forEach(c => {
+            vis.icons.push(new Icon({
+                id: c.id,
                 parentElement: vis.grid,
-                radius: vis.config.iconR,
-                startAngle: 0,
-                endAngle: Math.PI,
+                radius: c.radius,
+                startAngle: c.startAngle,
+                endAngle: c.endAngle,
                 colors: vis.config.iconColors,
-                quarter: [
-                    {
-                        translateX: 0,
-                        translateY: vis.config.iconR,
-                        roate: -90,
-                        // innerRadius: vis.config.iconR / 2,
-                        color: 0
-                    },
-                    {
-                        translateX: 0,
-                        translateY: -vis.config.iconR,
-                        roate: 90,
-                        innerRadius: vis.config.iconR / 2,
-                        color: 2
+                quarter: c.quarter.map(q => {
+                    return {
+                        translateX: q.translateX,
+                        translateY: q.translateY,
+                        roate: q.roate,
+                        innerRadius: q.innerRadius || 0,
+                        color: q.color
                     }
-    
-                ]
-            }),
-            new Icon({
-                id: "icon2",
-                parentElement: vis.grid,
-                radius: vis.config.iconR,
-                startAngle: Math.PI / 2,
-                endAngle: Math.PI,
-                colors: vis.config.iconColors,
-                quarter: [
-                    {
-                        translateX: 0, 
-                        translateY: 0,
-                        roate: 0,
-                        color: 2
-                    },
-                    {
-                        translateX: 0,
-                        translateY: 0,
-                        roate: 90,
-                        color: 1
-                    },
-                    {
-                        translateX: vis.config.iconR,
-                        translateY: 0,
-                        roate: 180,
-                        color: 2
-                    },
-                    {
-                        translateX: -vis.config.iconR,
-                        translateY: 0,
-                        roate: 270,
-                        color: 1
-                    }
-    
-                ]
-            }),
-            new Icon({
-                id: "icon3",
-                parentElement: vis.grid,
-                radius: vis.config.iconR,
-                innerRadius: vis.config.iconR / 2,
-                startAngle: 0,
-                endAngle: Math.PI * 2,
-                colors: vis.config.iconColors,
-                quarter: [
-                    { 
-
-                        translateX: 0, 
-                        translateY: 0,
-                        roate: 0,
-                        color: 3
-                    }
-                ]
-            }),
-            new Icon({
-                id: "icon4",
-                parentElement: vis.grid,
-                radius: vis.config.iconR,
-                startAngle: Math.PI / 2,
-                endAngle: Math.PI,
-                colors: vis.config.iconColors,
-                quarter: [
-                    {
-                        translateX: -vis.config.iconR, 
-                        translateY: -vis.config.iconR,
-                        roate: 0,
-                        color: 3
-                    },
-                    {
-                        translateX: vis.config.iconR,
-                        translateY: -vis.config.iconR,
-                        roate: 90,
-                        color: 3
-                    },
-                    {
-                        translateX: vis.config.iconR,
-                        translateY: vis.config.iconR,
-                        roate: 180,
-                        color: 4
-                    },
-                    {
-                        translateX: -vis.config.iconR,
-                        translateY: vis.config.iconR,
-                        roate: 270,
-                        color: 4
-                    }
-    
-                ]
-            }),
-            new Icon({
-                id: "icon5",
-                parentElement: vis.grid,
-                radius: vis.config.iconR,
-                startAngle: 0,
-                endAngle: Math.PI,
-                colors: vis.config.iconColors,
-                quarter: [
-                    {
-                        translateX: 0,
-                        translateY: 0,
-                        roate: 0,
-                        innerRadius: vis.config.iconR / 2,
-                        color: 0
-                    },
-                    {
-                        translateX:  -vis.config.iconR,
-                        translateY: 0,
-                        roate:0,
-                        color: 3
-                    }
-    
-                ]
-            }),
-            new Icon({
-                id: "icon6",
-                parentElement: vis.grid,
-                radius: vis.config.iconR,
-                startAngle: Math.PI / 2,
-                endAngle: Math.PI,
-                colors: vis.config.iconColors,
-                quarter: [
-                    {
-                        translateX: vis.config.iconR, 
-                        translateY: vis.config.iconR, 
-                        roate: 180,
-                        color: 2
-                    },
-                    {
-                        translateX: 0,
-                        translateY: 0,
-                        roate: 270,
-                        innerRadius: vis.config.iconR / 2,
-                        color: 4
-                    },
-                    {
-                        translateX: -vis.config.iconR, 
-                        translateY: vis.config.iconR,
-                        roate: 270,
-                        color:2
-                    },
-                    {
-                        translateX: 0,
-                        translateY: 0,
-                        roate: 180,
-                        innerRadius: vis.config.iconR / 2,
-                        color: 4
-                    }
-    
-                ]
-            }),
-        ]
+                })
+            }))
+        })
         
         /**
          * Create Scales
@@ -259,7 +103,6 @@ class IconGird {
          * Add icons to grid
          */
         vis.grid.selectAll("use").remove();
-
         vis.grid.selectAll("use")
             .data(vis.config.data)
             .enter().append("use")
@@ -268,11 +111,8 @@ class IconGird {
             .attr('x', d => vis.x(d.index % vis.config.colsN))
             .attr('y', d => vis.y(Math.floor(d.index / vis.config.colsN)))
 
-
-
         vis.grid
             .attr("transform", `translate(${vis.config.width/(vis.config.colsN * 2)}, ${vis.config.height/(vis.config.rowsN * 2) })`);
-
         
         } 
 
