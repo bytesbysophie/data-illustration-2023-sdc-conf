@@ -194,7 +194,6 @@ gridConfig.iconsConfig = [
     }
 ]
 
-
 /**  
  * DATA - TODO: load data from csv
 */
@@ -210,6 +209,8 @@ d3.csv('data.csv').then(data => {
             gridData.push({type: d.type})
         }
     })
+    // Extract categories in original order before shuffeling, so the order on the data file will define the icon <> category assingment, not randomness
+    gridConfig.dataCategories = d3.map(data, d => d.type) 
     gridData = d3.shuffle(gridData)
     gridData.forEach((d, i) => d.index = i)
 

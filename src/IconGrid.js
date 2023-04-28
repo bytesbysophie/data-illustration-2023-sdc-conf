@@ -15,6 +15,7 @@ class IconGird {
             background: _config.background,
             iconColors: _config.iconColors,
             iconsConfig: _config.iconsConfig,
+            dataCategories: _config.dataCategories,
             data: _config.data
         }
         this.initVis();
@@ -97,7 +98,7 @@ class IconGird {
             .domain(d3.range(vis.config.colsN));
         vis.i
             .range(d3.map(vis.icons, d => d.id))
-            .domain(d3.map(vis.config.data, d => d.type))
+            .domain(vis.config.dataCategories)
 
         /**
          * Add icons to grid
