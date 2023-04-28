@@ -200,7 +200,7 @@ gridConfig.iconsConfig = [
 */
 let iconGrid
 
-d3.csv('tickets.csv').then(data => {
+d3.csv('data.csv').then(data => {
     console.log(0x1B1818.toString(16))
     let gridData = []
     data.forEach(d => {
@@ -377,7 +377,6 @@ function downloadAsPng(timestamp) {
 
 function downloadAsCSV(timestamp) {
 
-    // Download SVG
     //get svg element.
     var svg = document.getElementsByTagName("svg")[0];
 
