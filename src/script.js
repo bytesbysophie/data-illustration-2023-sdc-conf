@@ -191,7 +191,26 @@ gridConfig.iconsConfig = [
             }
 
         ]
-    }
+    },
+    {
+        id: "icon7",
+        parentElement: null,
+        radius: gridConfig.iconR,
+        innerRadius: gridConfig.iconR / 2,
+        startAngle: 0,
+        endAngle: Math.PI * 2,
+        colors: gridConfig.iconColors,
+        quarter: [
+            { 
+
+                translateX: 0, 
+                translateY: 0,
+                roate: 0,
+                innerRadius: 0,
+                color: 1
+            }
+        ]
+    },
 ]
 
 /**  
@@ -210,7 +229,7 @@ d3.csv('data.csv').then(data => {
         }
     })
     // Extract categories in original order before shuffeling, so the order on the data file will define the icon <> category assingment, not randomness
-    gridConfig.dataCategories = d3.map(data, d => d.type) 
+    gridConfig.dataCategories = d3.map(data, d => d.type)
     gridData = d3.shuffle(gridData)
     gridData.forEach((d, i) => d.index = i)
 
