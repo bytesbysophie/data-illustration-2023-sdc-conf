@@ -232,14 +232,14 @@ function addConfigurationMenu() {
     // Configuration GUI
     const gui = new GUI();
 
-    gui.add( gridConfig, 'width', 0, 1200, 1)
+    gui.add( gridConfig, 'width', 0, 2000, 1)
         .name("Width")
         .onChange( value => {
             iconGrid.config.width = value
             iconGrid.updateVis()
         })
 
-    gui.add( gridConfig, 'height', 0, 1200, 1)
+    gui.add( gridConfig, 'height', 0, 2000, 1)
         .name("Height")
         .onChange( value => {
             iconGrid.config.height = value
@@ -247,7 +247,7 @@ function addConfigurationMenu() {
         })
 
     Object.keys(gridConfig.margin).forEach(k => {
-        gui.add( gridConfig.margin, k, 0, 200, 2)
+        gui.add( gridConfig.margin, k, 0, 500, 2)
         .name("Margin " + k)
         .onChange( value => {
             iconGrid.config.margin[k] = value
@@ -337,12 +337,19 @@ function downloadSettingsAsCsv(timestamp) {
     // Prepare config download
     let configList = []
     Object.keys(gridConfig).forEach(k => {
+
         if (k !== 'data') {
-            // Remove # from the strings or the CSV creation will bread
-            configList.push({[k]: gridConfig[k].toString().replaceAll("#", "")})
+            if(k === 'margin') {
+                Object.keys(gridConfig[k]).forEach(key => {
+                    configList.push({[k + "." + key]: gridConfig[k][key].toString().replaceAll("#", "")})
+                })
+            } else {
+                // Remove # from the strings or the CSV creation will bread
+                configList.push({[k]: gridConfig[k].toString().replaceAll("#", "")})
+            }
         }
     })
-
+    console.log(configList)
     let csvContentConfig = "data:text/csv;charset=utf-8;" 
         + "key,value" + "\n" // Add header lines
         + configList.map(e => Object.entries(e)[0].join(",")).join("\n") // Add line for each data entry
