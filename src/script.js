@@ -131,30 +131,30 @@ gridConfig.iconsConfig = [
 
         ]
     },
-    {
-        id: "icon5",
-        parentElement: null,
-        radius: gridConfig.iconR,
-        startAngle: 0,
-        endAngle: Math.PI,
-        colors: gridConfig.iconColors,
-        quarter: [
-            {
-                translateX: 0,
-                translateY: 0,
-                roate: 0,
-                innerRadius: gridConfig.iconR / 2,
-                color: 0
-            },
-            {
-                translateX:  -gridConfig.iconR,
-                translateY: 0,
-                roate:0,
-                color: 3
-            }
+    // {
+    //     id: "icon5",
+    //     parentElement: null,
+    //     radius: gridConfig.iconR,
+    //     startAngle: 0,
+    //     endAngle: Math.PI,
+    //     colors: gridConfig.iconColors,
+    //     quarter: [
+    //         {
+    //             translateX: 0,
+    //             translateY: 0,
+    //             roate: 0,
+    //             innerRadius: gridConfig.iconR / 2,
+    //             color: 0
+    //         },
+    //         {
+    //             translateX:  -gridConfig.iconR,
+    //             translateY: 0,
+    //             roate:0,
+    //             color: 3
+    //         }
 
-        ]
-    },
+    //     ]
+    // },
     {
         id: "icon6",
         parentElement: null,

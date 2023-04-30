@@ -43,12 +43,13 @@ class Icon {
     }
 
     updateVis() {
-        console.log("update vis Icon")
         let vis = this
-        vis.icon.selectAll("path").remove();
+        vis.icon.selectAll("g").remove();
+        vis.iconGroup = vis.icon.append("g")
 
         // Append path for each section of the icon depending on the section configs
         for (let i in vis.sections) {
+
 
             // The following attributes can be configured for each section of the icon or for all at once
             vis.arcGenerator
@@ -57,7 +58,7 @@ class Icon {
                 .endAngle(vis.sections[i].endAngle || vis.endAngle)
                 .innerRadius(vis.sections[i].innerRadius * vis.scale || vis.innerRadius * vis.scale || 0)
 
-            vis.icon
+            vis.iconGroup
                 .append("path")
                 .attr("d", d => vis.arcGenerator(d))
                 .attr("transform", d => `translate(${vis.sections[i].translateX * vis.scale},${vis.sections[i].translateY * vis.scale}) 
