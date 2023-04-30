@@ -9,12 +9,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
  */
 const gridConfig = {}
 gridConfig.parentElement = "#grid-container"
-gridConfig.width = 300
-gridConfig.height = 900
-gridConfig.margin = {top: 20, right: 20, bottom: 20, left: 20}
-gridConfig.colsN = 7
-gridConfig.scale = 1
-gridConfig.background = '#1B1818'
+gridConfig.width = 638
+gridConfig.height = 1831
+gridConfig.margin = {top: 250, right: 40, bottom: 150, left: 40}
+gridConfig.colsN = 8
+gridConfig.scale = 2.01
+gridConfig.background = '#1c1b1d'
 gridConfig.iconR = 15
 gridConfig.iconColors = ['#AC5CEA','#62bde4', '#ffffff', '#FFE184', '#00A09A']
 gridConfig.iconsConfig = [
@@ -273,7 +273,7 @@ function addConfigurationMenu() {
     gui.add( gridConfig, 'scale', 0, 5)
         .name("Icon Scale")
         .onChange( value => {
-            iconGrid.config.iconR = value
+            iconGrid.config.scale = value
             iconGrid.icons.forEach(i => {
                 i.scale = value
                 i.updateVis()

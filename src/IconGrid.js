@@ -11,6 +11,7 @@ class IconGird {
             margin: _config.margin,
             colsN: _config.colsN, 
             rowsN: _config.rowsN, 
+            scale: _config.scale,
             iconR: _config.iconR,
             background: _config.background,
             iconColors: _config.iconColors,
@@ -37,7 +38,10 @@ class IconGird {
          * Create Icon Grid
          */
         vis.grid = vis.svg.append("g")
-            .attr("transform", `translate(${vis.config.width/(vis.config.colsN * 2)}, ${vis.config.height/(vis.config.rowsN * 2) })`);
+            .attr("transform", `translate(
+                ${(vis.config.width - vis.config.margin.left - vis.config.margin.right)/(vis.config.colsN * 2)}, 
+                ${(vis.config.height - vis.config.margin.top - vis.config.margin.bottom)/(vis.config.rowsN * 2) }
+                )`);
 
         /**
          * Create Icon List
@@ -51,6 +55,7 @@ class IconGird {
                 startAngle: c.startAngle,
                 endAngle: c.endAngle,
                 colors: vis.config.iconColors,
+                scale: vis.config.scale,
                 quarter: c.quarter.map(q => {
                     return {
                         translateX: q.translateX,
@@ -132,9 +137,6 @@ class IconGird {
                      .attr('opacity', '1')
                 vis.grid.selectAll("text").remove()
             })
-
-        vis.grid
-            .attr("transform", `translate(${vis.config.width/(vis.config.colsN * 2)}, ${vis.config.height/(vis.config.rowsN * 2) })`);
         
         } 
 
